@@ -1,0 +1,18 @@
+{
+  "n_repeat" : 100,
+  "seed" : 12345,
+  "n_channels_list" : [2,3,5,8],
+  "samples_list" : "./samples/metadata.json",
+  "ref_mic" : 0,
+  "dir" : "data",
+
+  "room_params": {
+    "mic_delta": 0.02,
+    "fs": 16000,
+    "t60_interval": [0.150, 0.350],
+    "room_width_interval": [6, 10],
+    "room_height_interval": [2.8, 4.5],
+    "source_zone_height": [1.0, 2.0],
+    "guard_zone_width": 0.5
+  }
+}
