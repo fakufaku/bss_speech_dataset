@@ -31,9 +31,6 @@ import pyroomacoustics as pra
 from get_data import get_data, samples_dir
 from samples.generate_samples import sampling
 
-# download data if needed
-get_data()
-
 # find the absolute path to this file
 base_dir = os.path.abspath(os.path.split(__file__)[0])
 
@@ -54,10 +51,13 @@ def create_mixture(args):
 
     n_mics, room_id, room_seed, wav_files, config_filename = args
 
+    # number of sources is implicit from number of source signals provided
+    n_sources = len(wav_files)
+
     with open(config_filename, "r") as f:
         config = json.load(f)
 
-    # Get a random room
+    # Get a random room with same number of mic and sources
     room, room_params = random_room_builder(
         wav_files, n_mics, seed=room_seed, **config["room_params"]
     )
@@ -85,12 +85,29 @@ def create_mixture(args):
         )
         wavfile.write(src_filenames[-1], config["room_params"]["fs"], premix[:, m, :].T)
 
+    # save the room impulse response
+    rir_filenames = []
+    for m in range(n_mics):
+        for s in range(n_sources):  #
+            rir_filenames.append(
+                str(
+                    Path(config["dir"])
+                    / f"rir_channels{n_mics}_room{room_id}_mic{m}_src{s}.wav"
+                )
+            )
+            wavfile.write(
+                rir_filenames[-1],
+                config["room_params"]["fs"],
+                (room.rir[m][s] * 4 * np.pi * (2 ** 15)).astype(np.int16),
+            )
+
     results = {
         "room_id": room_id,
         "n_channels": n_mics,
         "room_params": room_params,
         "mix_filename": mix_filename,
         "src_filenames": src_filenames,
+        "rir_filenames": rir_filenames,
     }
 
     return results
@@ -130,7 +147,15 @@ def generate_arguments(config_filename):
         ):
 
             # add the new combination to the list
-            args.append([n_channels, room_id, room_seed, wav_files, config_filename])
+            args.append(
+                [
+                    n_channels,
+                    room_id,
+                    room_seed,
+                    wav_files[:n_channels],
+                    config_filename,
+                ]
+            )
 
     np.random.set_state(rng_state)
 

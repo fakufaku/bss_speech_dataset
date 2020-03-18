@@ -233,7 +233,7 @@ def random_room_builder(
         max_distance=d_critical + 1,
     )
 
-    source_signals = wav_read_center(wav_files[:n_mics], seed=123)
+    source_signals = wav_read_center(wav_files, seed=123)
 
     for s, signal in enumerate(source_signals):
         room.add_source(source_locs[:, s], signal=signal)
@@ -259,7 +259,7 @@ def random_room_builder(
             "max_order": max_order,
         },
         "mics": mic_array.R.T.tolist(),
-        "sources": {"locs": source_locs.T.tolist(), "signals": wav_files[:n_mics]},
+        "sources": {"locs": source_locs.T.tolist(), "signals": wav_files},
         "t60": t60_actual.tolist(),
     }
 
