@@ -1,0 +1,8 @@
+name: bss_speech_dataset
+dependencies:
+  - python
+  - numpy
+  - scipy
+  - pip
+  - pip:
+    - pyroomacoustics

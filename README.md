@@ -6,13 +6,19 @@ Dataset of reverberant speech mixtures created from CMU Arctic samples and pyroo
 Create Dataset
 --------------
 
+The dependencies are `numpy`, `scipy`, and `pyroomacoustics`.
+Anaconda is an easy way to install them
+
+    conda env create -f environment.yml
+    conda activate bss_speech_dataset
+
 Running the following script will create the dataset and store it in the `data` folder.
 
     python ./make_dataset.py config.json
 
 The content of the dataset is described in the file `data/metadata.json` with following structure
 
-    channelsX:
+    channelsX: [X is the number of channels]
       - [list of 100 rooms]:
         - room_id: the id of the room [0-99]
         - n_channels: the number of channels used [X]
