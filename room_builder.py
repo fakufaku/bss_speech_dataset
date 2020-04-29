@@ -3,10 +3,10 @@ import math
 from typing import List, Optional, Tuple
 
 import numpy as np
-import pyroomacoustics as pra
 from numpy.random import rand
 
-from samples.generate_samples import wav_read_center
+import pyroomacoustics as pra
+from generate_samples import wav_read_center
 
 
 def inv_sabine(t60, room_dim, c):

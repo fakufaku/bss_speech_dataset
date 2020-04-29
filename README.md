@@ -25,17 +25,24 @@ The content of the dataset is described in the file `data/metadata.json` with fo
         - room_params: the parameters used to simulate the room
         - mix_filename: the names of the files containing the mixture signals
         - src_filenames: the names of the files containing isolated sources
+        - anechoic_filenames: the names of the files containing the isolated
+          sources without reverberation, but with the correct time of arrivals,
+          this is useful for evaluating dereverberation algorithms
         - rir_filenames: the names of the files containing the room impulse responses
 
 File naming scheme
 
-    data/channelsX_roomY_mix.wav
+    channelsX_roomY_mix.wav
       The file that contains an X-channels mixture of X sources in room Y
 
-    data/channelsX_roomY_micZ.wav
+    channelsX_roomY_micZ.wav
       The file that contains X-channels with each isolated source in one of the channels
       all recorded by microphone with index Z in room Y
 
-    data/rir_channelsX_roomY_micZ_srcT.wav
+    channelsX_roomY_micZ_anechoic.wav
+      The file that contains X-channels with each non-reverberant isolated source in one 
+      of the channels all recorded by microphone with index Z in room Y
+
+    rir_channelsX_roomY_micZ_srcT.wav
       The file that contains the impulse response between source T and microphone Z in
       room Y for the X-channels mixture
