@@ -133,7 +133,7 @@ def create_mixture(args):
         "room_params": room_params,
         "mix_filename": mix_filename,
         "src_filenames": src_filenames,
-        "anechoic_filenames": src_filenames,
+        "anechoic_filenames": anechoic_filenames,
         "rir_filenames": rir_filenames,
         "transcripts": transcripts,
     }
