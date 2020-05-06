@@ -85,8 +85,11 @@ def create_mixture(args):
     )
 
     # Scale so that all signals fit in the range of int16
-    scaling = 2 ** 15 / np.max(
-        [np.abs(mix).max(), np.abs(premix).max(), np.abs(anechoic_premix).max()]
+    scaling = 2 ** 15 * (
+        0.95
+        / np.max(
+            [np.abs(mix).max(), np.abs(premix).max(), np.abs(anechoic_premix).max()]
+        )
     )
     mix = (mix * scaling).astype(np.int16)
     premix = (premix * scaling).astype(np.int16)
